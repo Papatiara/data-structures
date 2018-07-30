@@ -24,7 +24,6 @@ var Queue = function() {
     let min = Math.min(...keys);
     let item = storage[min];
     delete storage[min];
-    console.log(storage);
     if (size > 0) {
       size--;
     } else {
