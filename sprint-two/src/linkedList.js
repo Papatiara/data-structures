@@ -3,36 +3,42 @@ var LinkedList = function() {
   list.head = null;
   list.tail = null;
 
-var values = [];
-
-  list.addToTail = function(value) {  
-    var newNode = Node(value);
-   values.push(newNode.value);
-    if(!list.head){ 
-      list.head = newNode;
-      list.tail = newNode;
-    } else {
-      list.tail = newNode;
-      list.head.next = newNode;
+  list.addToTail = function(value) {
+    //constant time O(1)
+    var newTail = new Node(value);
+    if (!list.head) {
+      list.head = newTail;
     }
+    if (list.tail) {
+      list.tail.next = newTail;
+    }
+    list.tail = newTail;
   };
 
   list.removeHead = function() {
-  if(list.head && list.head.next !== null){
-   list.head = list.head.next;
-  }
-  if(values.includes(list.head.value)){
-  values.shift();
-}
-return list.head.value;
-};
-
-  list.contains = function(target) {
-    return values.includes(target);
+    //constant time O(1)
+    let removedHead = list.head.value;
+    if (list.head) {
+      removedHead = list.head.value;
+      delete list.head.value;
+      list.head = list.head.next;
+    } 
+    return removedHead;
   };
 
+  list.contains = function(target) {
+    // linear time O(n)
+    // It depends on how many nodes the list has
+    if (list.head && list.head.value === target) {
+      return true;
+    } if (list.head && typeof list.head.next === 'number' && list.head.next.value === target) {
+      return true;
+    } if (list.tail && list.tail.value === target) {
+      return true;
+    }
+    return false;
+  };
   return list;
-    
 };
 
 var Node = function(value) {
